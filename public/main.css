@@ -1,0 +1,48 @@
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: 'Press Start 2P', cursive; }
+
+#root .status .col {
+  font-size: 10px; }
+#root .screen {
+  background-color: #fff;
+  margin-top: 50px;
+  height: 300px;
+  width: 90%;
+  margin: auto;
+  overflow: scroll; }
+#root #map {
+  position: relative;
+  background-image: url("/images/tile.jpg");
+  background-size: 15px 15px; }
+#root .cell {
+  margin: 0;
+  float: left; }
+#root .wall {
+  background-image: url("/images/wall.png");
+  background-size: 100% 100%; }
+#root .player {
+  background-image: url("/images/player_right.png");
+  background-size: 100% 100%; }
+#root .red {
+  background-color: #ff0000; }
+#root .turnRight {
+  background-image: url("/images/player_right.png");
+  background-size: 100% 100%; }
+#root .corridor {
+  background-image: url("/images/tile.jpg");
+  background-size: 100% 100%; }
+#root .wallTop {
+  background-image: url("/images/wallTop.png");
+  background-size: 100% 100%; }
+#root .monster_1 {
+  background-color: yellow; }
+#root .monster_2 {
+  background-color: orange; }
+#root .monster_3 {
+  background-color: red; }
+#root .monster_boss {
+  background-color: purple; }
+
+/*# sourceMappingURL=main.css.map */

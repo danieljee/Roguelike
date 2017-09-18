@@ -1,0 +1,5 @@
+Possible features:
+
+1. Add different algorithm choices (1. cellular, 2. current, 3. maze)
+
+2. Add an ice environment (and use the player movement logic before (set player position to absolute and transition)

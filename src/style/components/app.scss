@@ -1,0 +1,68 @@
+.status .col{
+  font-size: 10px;
+}
+
+.screen{
+  background-color: #fff;
+  margin-top: 50px;
+  height: 300px;
+  width: 90%;
+  margin: auto;
+  overflow: scroll;
+}
+
+#map{
+  position:relative;
+  background-image: url('/images/tile.jpg');
+  background-size: 15px 15px;
+}
+
+.cell{
+  margin:0;
+  float:left;
+}
+
+.wall{
+  background-image: url('/images/wall.png');
+  background-size: 100% 100%;
+}
+
+.player{
+  background-image: url('/images/player_right.png');
+  background-size: 100% 100%;
+}
+
+.red{
+  background-color: #ff0000;
+}
+
+.turnRight{
+  background-image: url('/images/player_right.png');
+  background-size: 100% 100%;
+}
+
+.corridor{
+  background-image: url('/images/tile.jpg');
+  background-size: 100% 100%;
+}
+
+.wallTop{
+  background-image: url('/images/wallTop.png');
+  background-size: 100% 100%;
+}
+
+.monster_1{
+  background-color: yellow;
+}
+
+.monster_2{
+  background-color: orange;
+}
+
+.monster_3{
+  background-color: red;
+}
+
+.monster_boss{ //boss
+  background-color: purple;
+}
