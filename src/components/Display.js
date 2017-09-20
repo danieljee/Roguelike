@@ -2,16 +2,51 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Map from '../utils/Map';
 import Logic from '../utils/Logic';
-
+import * as playerActions from '../actions/player';
 class Display extends Component{
-  constructor(){
-    super();
-  }
   componentDidMount(){
-    const map = new Map(this.props.map);
-    const logic = new Logic(this.props.map);
-    map.createMap();
+    this.init();
+    window.onclick = () => {
+      document.getElementById('gameOverPopUp').style.display = "none";
+    }
+  }
 
+  componentWillReceiveProps(nextProp){
+    console.log('new prop received');
+    //If the player died.
+    if (nextProp.player.health <= 0){
+      console.log('1');
+      this.resetGrid();
+      this.props.playerAction.reset();
+      document.getElementById('gameOverPopUp').style.display = "block";
+    //If the player died and the state is reset.
+    } else if (nextProp.player.reset){
+      console.log('2');
+      this.state.map.updateProperties(nextProp.map, nextProp.dungeon);
+      this.state.map.createMap();
+      this.state.logic.updateProps(nextProp.map, nextProp.dungeon, nextProp.player, this.props.playerAction);
+    //If the player leveled up.
+    } else if (nextProp.player.level> this.props.player.level){
+      console.log('3');
+      this.state.logic.updateProps(nextProp.map, nextProp.dungeon, nextProp.player, this.props.playerAction);
+    } else if (nextProp.dungeon.floor < this.props.dungeon.floor){
+      this.resetGrid();
+      console.log('reset grid');
+      this.state.map.updateProperties(nextProp.map, nextProp.dungeon);
+      this.state.map.createMap();
+      this.state.logic.updateProps(nextProp.map, nextProp.dungeon, nextProp.player, this.props.playerAction);
+    }
+  }
+
+  init(){
+    const map = new Map(this.props.map, this.props.dungeon);
+    map.createMap();
+    this.setState({
+      map,
+      logic: new Logic(this.props.map, this.props.dungeon, this.props.player, this.props.playerAction)
+    }, () => {
+      this.state.logic.initializeEventHandler();
+    });
   }
 
   generateGrid(){
@@ -27,9 +62,21 @@ class Display extends Component{
     return React.createElement('div', {id: 'map', style:{width:`${this.props.map.tileSize * this.props.map.columns}px`, height:`${this.props.map.tileSize * this.props.map.rows}px`}}, grid);
   }
 
+  resetGrid(){
+    [...document.getElementsByClassName('cell')].forEach((cell)=>{
+      cell.className='cell wall';
+    });
+  }
+
   render(){
     return(
       <div>
+        <div id="gameOverPopUp" className="popUp">
+          <div className="modal-content">
+            <span className="close" onClick={()=>{document.getElementById('gameOverPopUp').style.display = "none";}}>&times;</span>
+            <p>You died...</p>
+          </div>
+        </div>
         <div className="screen">
           {this.generateGrid()}
         </div>
@@ -40,8 +87,35 @@ class Display extends Component{
 
 function mapStateToProps(state){
   return {
-    map: state.map
+    map: state.map,
+    player: state.player,
+    dungeon: state.dungeon
+  };
+}
+
+function mapDispatchToProps(dispatch){
+  return{
+    playerAction: {
+      attackPlayer: (damage)=>{
+        dispatch(playerActions.attackPlayer(damage));
+      },
+      drinkPotion: (health)=>{
+        dispatch(playerActions.drinkPotion(health));
+      },
+      reset: () => {
+        dispatch(playerActions.reset());
+      },
+      gainExperience: (experience) => {
+        dispatch(playerActions.gainExperience(experience));
+      },
+      levelUp: () => {
+        dispatch(playerActions.levelUp());
+      },
+      goDown: () => {
+        dispatch(playerActions.goDown());
+      }
+    }
   }
 }
 
-export default connect(mapStateToProps)(Display);
+export default connect(mapStateToProps, mapDispatchToProps)(Display);

@@ -2,7 +2,11 @@ import Room from './Room';
 import Corridor from './Corridor';
 
 class Map{
-  constructor(mapProp){
+  constructor(mapProp, dungeonProp){
+    this.updateProperties(mapProp, dungeonProp);
+  }
+
+  updateProperties(mapProp, dungeonProp){
     this.tileSize= mapProp.tileSize;
     this.rows = mapProp.rows;
     this.columns = mapProp.columns;
@@ -13,8 +17,12 @@ class Map{
     this.corridorLengthRange = mapProp.corridorLength;
     this.rooms = [];
     this.corridors = [];
-    // window.createRoom = this.createRoom.bind(this);
-    // window.createCorridor = this.createCorridor.bind(this);
+
+    this.floor =  dungeonProp.floor;
+    this.weakMonsters = dungeonProp.weakMonsters.random();
+    this.normalMonsters = dungeonProp.normalMonsters.random();
+    this.strongMonsters = dungeonProp.strongMonsters.random();
+    this.potions = dungeonProp.numberOfPotions.random();
   }
 
   createMap(){
@@ -33,60 +41,105 @@ class Map{
     }
     this.generateMonsters();
     this.generateItems();
+    if (this.floor > -3){
+      this.generatePortal();
+    }
     this.spawnPlayer();
   }
 
   generateMonsters(){
-    for(var i=0; i<this.rooms.length; i++){
-      var cells = document.querySelectorAll(`.room${i}`);
-      var mobChance = cells.length / 100;
-      for (var monsterLevel=1; monsterLevel<=3; monsterLevel++){
-        for(var n=0; n<cells.length; n++){
-          if (Math.random() * (10*monsterLevel) < mobChance){
-            cells[n].classList.add('monster');
-            cells[n].classList.add(`monster_${monsterLevel}`);
-          }
+    for (let i=0; i<this.weakMonsters; i++){
+      var index = Math.floor(Math.random() * this.rooms.length);
+      var cells = document.querySelectorAll(`.room${index}`);
+      if (cells.length > 3) {
+        index = Math.floor(Math.random() * cells.length);
+        cells[index].className += ' monster monster_1';
+      }
+    }
+    for (let i=0; i<this.normalMonsters; i++){
+      var index = Math.floor(Math.random() * this.rooms.length);
+      var cells = document.querySelectorAll(`.room${index}`);
+      if (cells.length > 3) {
+        index = Math.floor(Math.random() * cells.length);
+        if (cells[index].classList.contains('monster')){
+          i--;
+        } else {
+          cells[index].className += ' monster monster_2';
         }
-        cells = [...cells].filter((cell)=>{ //create a new array without monster_weak
-          if (cell.classList.contains('monster')) return false;
-          return true;
-        })
+      }
+    }
+    for (let i=0; i<this.strongMonsters; i++){
+      var index = Math.floor(Math.random() * this.rooms.length);
+      var cells = document.querySelectorAll(`.room${index}`);
+      if (cells.length > 3) {
+        index = Math.floor(Math.random() * cells.length);
+        if (cells[index].classList.contains('monster')){
+          i--;
+        } else {
+          cells[index].className += ' monster monster_3';
+        }
       }
     }
   }
 
   generateItems(){
+    for (let i=0; i<this.potions; i++){
+      var index = Math.floor(Math.random() * this.rooms.length);
+      var cells = document.querySelectorAll(`.room${index}`);
+      if (cells.length > 0 ){
+        for (let n=0; n<cells.length; n++){
+          index = Math.floor(Math.random() * cells.length);
+          if (!cells[index].classList.contains('monster')){
+            cells[index].className += ' item potion';
+            break;
+          }
+        }
+      }
+    }
+  }
 
+  generatePortal(){
+    console.log('generate portal');
+    while (true){
+      var index = Math.floor(Math.random() * this.rooms.length);
+      var cells = document.querySelectorAll(`.room${index}`);
+      if (cells.length > 0 ){
+        for (let n=0; n<cells.length; n++){
+          index = Math.floor(Math.random() * cells.length);
+          if (!cells[index].classList.contains('monster') && !cells[index].classList.contains('item')){
+            cells[index].className += ' stair';
+            return;
+          }
+        }
+      }
+    }
   }
 
   spawnPlayer(){
+    //May not need these tests as player on the outer layer
     var roomIndex = this.rooms.findIndex((room, i) => {
       var cells = document.querySelectorAll(`.room${i}`);
       return [...cells].some((cell) => {
-        if (!cell.classList.contains('monster') && !cell.classList.contains('item')) return true;
+        if (!cell.classList.contains('monster') && !cell.classList.contains('item') && !cell.classList.contains('stair')) return true;
       })
     });
     var cells = document.querySelectorAll(`.room${roomIndex}`);
     cells = [...cells].filter((cell) => {
-      if (cell.classList.contains('monster')||cell.classList.contains('item')) return false;
+      if (cell.classList.contains('monster')||cell.classList.contains('item')||cell.classList.contains('stair')) return false;
       return true;
     });
     var cellIndex = Math.floor(Math.random() * cells.length);
-    cells[cellIndex].classList.add('player');
+    var left = cells[cellIndex].id % 90;
+    var top = (cells[cellIndex].id - left)/90;
+    var player = document.getElementById('player');
+    if (player){
+      player.parentNode.removeChild(player);
+    }
+    player = document.createElement('div');
+    player.id = 'player';
+    player.setAttribute('style', `left:${left*this.tileSize}px; top:${top*this.tileSize}px`);
+    document.getElementById('map').appendChild(player);
   }
-
-  //These are for manual testing
-  // createRoom(){
-  //   const roomLength = this.rooms.length
-  //   this.rooms.push(new Room(this.roomWidthRange, this.roomHeightRange, this.columns, this.rows, this.tileSize, this.corridors[roomLength-1]));
-  //   this.rooms[roomLength].createRoom(roomLength);
-  // }
-  //
-  // createCorridor(){
-  //   const roomLength = this.rooms.length - 1;
-  //   this.corridors[roomLength] = new Corridor(this.rooms[roomLength], this.corridorLengthRange, this.roomWidthRange, this.roomHeightRange, this.columns, this.rows, false)
-  //   this.corridors[roomLength].createCorridor();
-  // }
 }
 
 export default Map;

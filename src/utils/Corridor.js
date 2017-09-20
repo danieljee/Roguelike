@@ -185,12 +185,10 @@ class Corridor{
         if(cell.classList.contains('wall')){
           cell.classList.remove('wall');
           cell.classList.remove('wallTop');
-          // cell.classList.add('corridor');
         }
         if (topWall.classList.contains('wall')){
           topWall.classList.add('wallTop');
         }
-        cell.classList.add('corridor'); // remove later
       }
     } else if (this.direction == DIRECTION.WEST){
       for (var i=this.startXPos; i>=this.endXPos; i--){
@@ -201,12 +199,10 @@ class Corridor{
         if(cell.classList.contains('wall')){
           cell.classList.remove('wall');
           cell.classList.remove('wallTop');
-          // cell.classList.add('corridor');
         }
         if (topWall.classList.contains('wall')){
           topWall.classList.add('wallTop');
         }
-        cell.classList.add('corridor');
       }
     } else if (this.direction == DIRECTION.NORTH){
       for (var i=this.startYPos; i>=this.endYPos; i--){
@@ -215,9 +211,7 @@ class Corridor{
         if(cell.classList.contains('wall')){
           cell.classList.remove('wall');
           cell.classList.remove('wallTop');
-          // cell.classList.add('corridor');
         }
-        cell.classList.add('corridor');
       }
     } else if (this.direction == DIRECTION.SOUTH){
       for (var i=this.startYPos; i<=this.endYPos; i++){
@@ -226,9 +220,7 @@ class Corridor{
         if(cell.classList.contains('wall')){
           cell.classList.remove('wall');
           cell.classList.remove('wallTop');
-          // cell.classList.add('corridor');
         }
-        cell.classList.add('corridor');
       }
     }
   }

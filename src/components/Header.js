@@ -8,12 +8,12 @@ class Header extends Component{
         <h3>RogueLike</h3>
         <div className="status">
           <div className="row">
-            <div className="col m2">Health: 50</div>
-            <div className="col m2">Weapon: Stick</div>
-            <div className="col m2">Power: 10</div>
-            <div className="col m2">Level: 0</div>
-            <div className="col m2">Experience: 20</div>
-            <div className="col m2">Dungeon: 0</div>
+            <div className="col m2">Health: {this.props.player.health}</div>
+            <div className="col m2">Weapon: {this.props.player.weapon}</div>
+            <div className="col m2">Power: {this.props.player.power}</div>
+            <div className="col m2">Level: {this.props.player.level}</div>
+            <div className="col m2">Next Level: {this.props.player.nextLevel}</div>
+            <div className="col m2">Floor: {this.props.dungeon.floor}</div>
           </div>
         </div>
       </div>
@@ -21,4 +21,11 @@ class Header extends Component{
   }
 }
 
-export default Header;
+function mapStateToProps(state){
+  return {
+    player: state.player,
+    dungeon: state.dungeon
+  };
+}
+
+export default connect(mapStateToProps)(Header);

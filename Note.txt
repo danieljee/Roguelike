@@ -3,3 +3,8 @@ Possible features:
 1. Add different algorithm choices (1. cellular, 2. current, 3. maze)
 
 2. Add an ice environment (and use the player movement logic before (set player position to absolute and transition)
+
+3. Tutorial area on load with an npc
+
+
+4. There's no going back once you go down the stairs
