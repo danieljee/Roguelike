@@ -2,7 +2,7 @@ import IntRandom from '../utils/IntRandom';
 import * as actions from '../actions/actions';
 
 const initialState = {
-  tileSize: 15,
+  tileSize: 20,
   rows: 50,
   columns: 90, //max should be 80
   numRooms: new IntRandom(7, 8),
@@ -17,7 +17,8 @@ export default (state=initialState, action) => {
       return initialState;
     case actions.GO_DOWN:
       return Object.assign({}, state, {
-        numRooms: state.numRooms.increaseMinMax(4, 4)
+        numRooms: state.numRooms.increaseMinMax(4, 4),
+        corridorLength: state.corridorLength.increaseMinMax(1, 1),
       });
     default:
       return state;

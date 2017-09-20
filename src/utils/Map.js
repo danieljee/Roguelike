@@ -43,6 +43,8 @@ class Map{
     this.generateItems();
     if (this.floor > -3){
       this.generatePortal();
+    } else {
+      this.generateBoss();
     }
     this.spawnPlayer();
   }
@@ -99,7 +101,6 @@ class Map{
   }
 
   generatePortal(){
-    console.log('generate portal');
     while (true){
       var index = Math.floor(Math.random() * this.rooms.length);
       var cells = document.querySelectorAll(`.room${index}`);
@@ -108,6 +109,22 @@ class Map{
           index = Math.floor(Math.random() * cells.length);
           if (!cells[index].classList.contains('monster') && !cells[index].classList.contains('item')){
             cells[index].className += ' stair';
+            return;
+          }
+        }
+      }
+    }
+  }
+
+  generateBoss(){
+    while (true){
+      var index = Math.floor(Math.random() * this.rooms.length);
+      var cells = document.querySelectorAll(`.room${index}`);
+      if (cells.length > 0 ){
+        for (let n=0; n<cells.length; n++){
+          index = Math.floor(Math.random() * cells.length);
+          if (!cells[index].classList.contains('monster') && !cells[index].classList.contains('item')){
+            cells[index].className += ' monster boss';
             return;
           }
         }
@@ -137,6 +154,7 @@ class Map{
     }
     player = document.createElement('div');
     player.id = 'player';
+    player.classList.add('playerRight_0');
     player.setAttribute('style', `left:${left*this.tileSize}px; top:${top*this.tileSize}px`);
     document.getElementById('map').appendChild(player);
   }

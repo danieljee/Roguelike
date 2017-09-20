@@ -3,12 +3,21 @@ import {connect} from 'react-redux';
 import Map from '../utils/Map';
 import Logic from '../utils/Logic';
 import * as playerActions from '../actions/player';
+import * as dungeonActions from '../actions/dungeon';
 class Display extends Component{
   componentDidMount(){
     this.init();
     window.onclick = () => {
       document.getElementById('gameOverPopUp').style.display = "none";
     }
+
+    var myAudio = new Audio('/music/dungeonBGM.mp3');
+    myAudio.addEventListener('ended', function() {
+        this.currentTime = 0;
+        this.play();
+    }, false);
+    myAudio.play();
+    this.props.dungeonActions.addMusic(myAudio);
   }
 
   componentWillReceiveProps(nextProp){
@@ -77,7 +86,7 @@ class Display extends Component{
             <p>You died...</p>
           </div>
         </div>
-        <div className="screen">
+        <div id='screen'>
           {this.generateGrid()}
         </div>
       </div>
@@ -113,6 +122,11 @@ function mapDispatchToProps(dispatch){
       },
       goDown: () => {
         dispatch(playerActions.goDown());
+      },
+    },
+    dungeonActions: {
+      addMusic: (obj) => {
+        dispatch(dungeonActions.addMusic(obj));
       }
     }
   }

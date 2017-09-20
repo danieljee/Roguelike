@@ -8,17 +8,17 @@ body {
   /* The Close Button */ }
   #root .status .col {
     font-size: 10px; }
-  #root .screen {
+  #root #screen {
     background-color: #fff;
     margin-top: 50px;
-    height: 300px;
+    height: 400px;
     width: 90%;
     margin: auto;
-    overflow: scroll; }
+    overflow: hidden; }
   #root #map {
     position: relative;
     background-image: url("/images/tile.jpg");
-    background-size: 15px 15px; }
+    background-size: 20px 20px; }
   #root .cell {
     margin: 0;
     float: left; }
@@ -27,11 +27,81 @@ body {
     background-size: 100% 100%; }
   #root #player {
     position: absolute;
-    background-image: url("/images/player_right.png");
-    background-size: 100% 100%;
     margin: 0;
-    width: 15px;
-    height: 15px; }
+    width: 20px;
+    height: 20px; }
+  #root .playerRight_0 {
+    background-image: url("/images/right_0.png");
+    background-size: 100% 100%; }
+  #root .playerRight_1 {
+    background-image: url("/images/right_1.png");
+    background-size: 100% 100%; }
+  #root .playerRight_2 {
+    background-image: url("/images/right_2.png");
+    background-size: 100% 100%; }
+  #root .playerLeft_0 {
+    background-image: url("/images/left_0.png");
+    background-size: 100% 100%; }
+  #root .playerLeft_1 {
+    background-image: url("/images/left_1.png");
+    background-size: 100% 100%; }
+  #root .playerLeft_2 {
+    background-image: url("/images/left_2.png");
+    background-size: 100% 100%; }
+  #root .playerDown_0 {
+    background-image: url("/images/down_0.png");
+    background-size: 100% 100%; }
+  #root .playerDown_1 {
+    background-image: url("/images/down_1.png");
+    background-size: 100% 100%; }
+  #root .playerDown_2 {
+    background-image: url("/images/down_2.png");
+    background-size: 100% 100%; }
+  #root .playerUp_0 {
+    background-image: url("/images/up_0.png");
+    background-size: 100% 100%; }
+  #root .playerUp_1 {
+    background-image: url("/images/up_1.png");
+    background-size: 100% 100%; }
+  #root .playerUp_2 {
+    background-image: url("/images/up_2.png");
+    background-size: 100% 100%; }
+  #root .playerUpRight_0 {
+    background-image: url("/images/upRight_0.png");
+    background-size: 100% 100%; }
+  #root .playerUpRight_1 {
+    background-image: url("/images/upRight_1.png");
+    background-size: 100% 100%; }
+  #root .playerUpRight_2 {
+    background-image: url("/images/upRight_2.png");
+    background-size: 100% 100%; }
+  #root .playerUpLeft_0 {
+    background-image: url("/images/upLeft_0.png");
+    background-size: 100% 100%; }
+  #root .playerUpLeft_1 {
+    background-image: url("/images/upLeft_1.png");
+    background-size: 100% 100%; }
+  #root .playerUpLeft_2 {
+    background-image: url("/images/upLeft_2.png");
+    background-size: 100% 100%; }
+  #root .playerDownRight_0 {
+    background-image: url("/images/downRight_0.png");
+    background-size: 100% 100%; }
+  #root .playerDownRight_1 {
+    background-image: url("/images/downRight_1.png");
+    background-size: 100% 100%; }
+  #root .playerDownRight_2 {
+    background-image: url("/images/downRight_2.png");
+    background-size: 100% 100%; }
+  #root .playerDownLeft_0 {
+    background-image: url("/images/downLeft_0.png");
+    background-size: 100% 100%; }
+  #root .playerDownLeft_1 {
+    background-image: url("/images/downLeft_1.png");
+    background-size: 100% 100%; }
+  #root .playerDownLeft_2 {
+    background-image: url("/images/downLeft_2.png");
+    background-size: 100% 100%; }
   #root .red {
     background-color: #ff0000; }
   #root .turnRight {
@@ -55,8 +125,9 @@ body {
   #root .monster_3 {
     background-image: url("/images/dino.gif");
     background-size: 100% 100%; }
-  #root .monster_boss {
-    background-color: purple; }
+  #root .boss {
+    background-image: url("/images/boss.gif");
+    background-size: 100% 100%; }
   #root .popUp {
     display: none;
     /* Hidden by default */

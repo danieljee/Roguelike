@@ -1,20 +1,21 @@
+
 .status .col{
   font-size: 10px;
 }
 
-.screen{
+#screen{
   background-color: #fff;
   margin-top: 50px;
-  height: 300px;
+  height: 400px;
   width: 90%;
   margin: auto;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 #map{
   position:relative;
   background-image: url('/images/tile.jpg');
-  background-size: 15px 15px;
+  background-size: 20px 20px;
 }
 
 .cell{
@@ -29,11 +30,106 @@
 
 #player{
   position:absolute;
-  background-image: url('/images/player_right.png');
-  background-size: 100% 100%;
   margin:0;
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
+}
+
+.playerRight_0{
+  background-image: url('/images/right_0.png');
+  background-size: 100% 100%;
+}
+.playerRight_1{
+  background-image: url('/images/right_1.png');
+  background-size: 100% 100%;
+}
+.playerRight_2{
+  background-image: url('/images/right_2.png');
+  background-size: 100% 100%;
+}
+.playerLeft_0{
+  background-image: url('/images/left_0.png');
+  background-size: 100% 100%;
+}
+.playerLeft_1{
+  background-image: url('/images/left_1.png');
+  background-size: 100% 100%;
+}
+.playerLeft_2{
+  background-image: url('/images/left_2.png');
+  background-size: 100% 100%;
+}
+.playerDown_0{
+  background-image: url('/images/down_0.png');
+  background-size: 100% 100%;
+}
+.playerDown_1{
+  background-image: url('/images/down_1.png');
+  background-size: 100% 100%;
+}
+.playerDown_2{
+  background-image: url('/images/down_2.png');
+  background-size: 100% 100%;
+}
+.playerUp_0{
+  background-image: url('/images/up_0.png');
+  background-size: 100% 100%;
+}
+.playerUp_1{
+  background-image: url('/images/up_1.png');
+  background-size: 100% 100%;
+}
+.playerUp_2{
+  background-image: url('/images/up_2.png');
+  background-size: 100% 100%;
+}
+.playerUpRight_0{
+  background-image: url('/images/upRight_0.png');
+  background-size: 100% 100%;
+}
+.playerUpRight_1{
+  background-image: url('/images/upRight_1.png');
+  background-size: 100% 100%;
+}
+.playerUpRight_2{
+  background-image: url('/images/upRight_2.png');
+  background-size: 100% 100%;
+}
+.playerUpLeft_0{
+  background-image: url('/images/upLeft_0.png');
+  background-size: 100% 100%;
+}
+.playerUpLeft_1{
+  background-image: url('/images/upLeft_1.png');
+  background-size: 100% 100%;
+}
+.playerUpLeft_2{
+  background-image: url('/images/upLeft_2.png');
+  background-size: 100% 100%;
+}
+.playerDownRight_0{
+  background-image: url('/images/downRight_0.png');
+  background-size: 100% 100%;
+}
+.playerDownRight_1{
+  background-image: url('/images/downRight_1.png');
+  background-size: 100% 100%;
+}
+.playerDownRight_2{
+  background-image: url('/images/downRight_2.png');
+  background-size: 100% 100%;
+}
+.playerDownLeft_0{
+  background-image: url('/images/downLeft_0.png');
+  background-size: 100% 100%;
+}
+.playerDownLeft_1{
+  background-image: url('/images/downLeft_1.png');
+  background-size: 100% 100%;
+}
+.playerDownLeft_2{
+  background-image: url('/images/downLeft_2.png');
+  background-size: 100% 100%;
 }
 
 .red{
@@ -75,8 +171,9 @@
   background-size: 100% 100%;
 }
 
-.monster_boss{ //boss
-  background-color: purple;
+.boss{ //boss
+  background-image: url('/images/boss.gif');
+  background-size: 100% 100%;
 }
 
 .popUp {

@@ -6,6 +6,7 @@ class Header extends Component{
     return(
       <div className="center-align">
         <h3>RogueLike</h3>
+        <p style={{fontSize:'1.1rem'}}>Goal: Defeat the boss in the fourth floor</p>
         <div className="status">
           <div className="row">
             <div className="col m2">Health: {this.props.player.health}</div>
