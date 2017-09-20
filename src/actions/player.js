@@ -40,3 +40,9 @@ export function goDown(){
     type:actions.GO_DOWN
   };
 }
+
+export function gameover(){
+  return{
+    type:actions.GAMEOVER
+  };
+}

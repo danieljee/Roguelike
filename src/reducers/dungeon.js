@@ -25,7 +25,12 @@ const initialState = {
 export default (state=initialState, action) => {
   switch(action.type){
     case actions.RESET:
-      return initialState;
+      return Object.assign({}, initialState, {
+        weakMonsters: state.weakMonsters.reset(),
+        normalMonsters: state.normalMonsters.reset(),
+        strongMonsters: state.strongMonsters.reset(),
+        numberOfPotions: state.numberOfPotions.reset(),
+      });
     case actions.GO_DOWN:
       return Object.assign({}, state, {
         floor: state.floor-1,

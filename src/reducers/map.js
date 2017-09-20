@@ -14,7 +14,10 @@ const initialState = {
 export default (state=initialState, action) => {
   switch(action.type){
     case actions.RESET:
-      return initialState;
+      return Object.assign({}, initialState, {
+        numRooms: state.numRooms.reset(),
+        corridorLength: state.corridorLength.reset(),
+      });
     case actions.GO_DOWN:
       return Object.assign({}, state, {
         numRooms: state.numRooms.increaseMinMax(4, 4),

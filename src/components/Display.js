@@ -2,15 +2,12 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Map from '../utils/Map';
 import Logic from '../utils/Logic';
+import Death from './Death';
 import * as playerActions from '../actions/player';
 import * as dungeonActions from '../actions/dungeon';
 class Display extends Component{
   componentDidMount(){
     this.init();
-    window.onclick = () => {
-      document.getElementById('gameOverPopUp').style.display = "none";
-    }
-
     var myAudio = new Audio('/music/dungeonBGM.mp3');
     myAudio.addEventListener('ended', function() {
         this.currentTime = 0;
@@ -21,40 +18,38 @@ class Display extends Component{
   }
 
   componentWillReceiveProps(nextProp){
-    console.log('new prop received');
     //If the player died.
     if (nextProp.player.health <= 0){
-      console.log('1');
-      this.resetGrid();
-      this.props.playerAction.reset();
-      document.getElementById('gameOverPopUp').style.display = "block";
+      clearInterval(this.state.loopId);
+      // this.resetGrid();
+      // this.props.playerAction.reset(); //reset when the button in the gameover page is pressed?
+      // document.getElementById('gameOverPopUp').style.display = "block";
     //If the player died and the state is reset.
     } else if (nextProp.player.reset){
-      console.log('2');
       this.state.map.updateProperties(nextProp.map, nextProp.dungeon);
       this.state.map.createMap();
       this.state.logic.updateProps(nextProp.map, nextProp.dungeon, nextProp.player, this.props.playerAction);
     //If the player leveled up.
     } else if (nextProp.player.level> this.props.player.level){
-      console.log('3');
       this.state.logic.updateProps(nextProp.map, nextProp.dungeon, nextProp.player, this.props.playerAction);
     } else if (nextProp.dungeon.floor < this.props.dungeon.floor){
       this.resetGrid();
-      console.log('reset grid');
       this.state.map.updateProperties(nextProp.map, nextProp.dungeon);
       this.state.map.createMap();
       this.state.logic.updateProps(nextProp.map, nextProp.dungeon, nextProp.player, this.props.playerAction);
+    } else if (nextProp.player.gameover){
+      clearInterval(this.state.loopId);
     }
   }
 
   init(){
     const map = new Map(this.props.map, this.props.dungeon);
     map.createMap();
+    const logic = new Logic(this.props.map, this.props.dungeon, this.props.player, this.props.playerAction);
     this.setState({
       map,
-      logic: new Logic(this.props.map, this.props.dungeon, this.props.player, this.props.playerAction)
-    }, () => {
-      this.state.logic.initializeEventHandler();
+      logic,
+      loopId: logic.initializeEventHandler()
     });
   }
 
@@ -78,8 +73,13 @@ class Display extends Component{
   }
 
   render(){
-    return(
-      <div>
+    var markup;
+    if (this.props.player.health <= 0){
+      markup = <Death/>;
+    } else if (this.props.player.gameover){
+      markup= <div>GAMEOVER!</div>;
+    } else {
+      markup = <div>
         <div id="gameOverPopUp" className="popUp">
           <div className="modal-content">
             <span className="close" onClick={()=>{document.getElementById('gameOverPopUp').style.display = "none";}}>&times;</span>
@@ -89,6 +89,12 @@ class Display extends Component{
         <div id='screen'>
           {this.generateGrid()}
         </div>
+      </div>;
+    }
+
+    return(
+      <div>
+      {markup}
       </div>
     );
   }
@@ -122,6 +128,9 @@ function mapDispatchToProps(dispatch){
       },
       goDown: () => {
         dispatch(playerActions.goDown());
+      },
+      gameover: () => {
+        dispatch(playerActions.gameover());
       },
     },
     dungeonActions: {

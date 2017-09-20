@@ -7,7 +7,8 @@ const initialState = {
   power: 10,
   level: 1,
   nextLevel: 60,
-  reset: false
+  reset: false,
+  gameover: false
 }
 
 export default (state=initialState, action) => {
@@ -42,6 +43,10 @@ export default (state=initialState, action) => {
     case actions.GO_DOWN:
       return Object.assign({}, state, {
         reset:false
+      });
+    case actions.GAMEOVER:
+      return Object.assign({}, state, {
+        gameover: true
       });
     default:
       return state;

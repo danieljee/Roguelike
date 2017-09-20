@@ -71,7 +71,8 @@ class Logic{
       this.keyState[e.keyCode || e.which] = false;
     });
     //return loop id to Display?
-    return setInterval(this.playerKeyEventHandler.bind(this), 100);
+
+    return this.loopId = setInterval(this.playerKeyEventHandler.bind(this), 100);
   }
 
   playerKeyEventHandler(){
@@ -152,6 +153,7 @@ class Logic{
   }
 
   moveScroll(){
+    if (this.playerHealth <= 0) return;
     const screen = document.getElementById('screen');
     screen.scrollTop = document.getElementById('player').offsetTop - screen.offsetHeight/2;
     screen.scrollLeft = document.getElementById('player').offsetLeft - screen.offsetWidth/2;
@@ -334,7 +336,7 @@ class Logic{
       this.playerHealth -= this.dungeonConfig.bossDamage;
       Materialize.toast(`Damage taken: ${this.dungeonConfig.bossDamage}`, 800);
     }
-    if (this.playerHealth <=0) return;
+    if (this.playerHealth <=0){clearInterval(this.loopId);return;}
 
     monsterList.forEach((monster, i) => {
       if (monster.id === cell.id){
@@ -348,6 +350,7 @@ class Logic{
           if (className === 'boss'){
             setTimeout(()=>{
               console.log('You\'ve defeated the boss!');
+              this.playerActions.gameover();
             }, 1000);
           }
         }

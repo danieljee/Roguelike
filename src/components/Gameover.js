@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../actions/dungeon';
-class Footer extends Component{
+class Gameover extends Component{
   render(){
     return(
-        <button id='toggleMusicButton' className="btn" onClick={this.props.turnOnOffMusic}>Music {this.props.dungeon.musicOn? 'Off':'On'}</button>
+      <div className="center-align" style={{marginTop:'20px'}}>
+        <h5>Game Over!</h5>
+      </div>
     );
   }
 }
@@ -16,4 +18,4 @@ function mapStateToProps(state){
   };
 }
 
-export default connect(mapStateToProps,actions)(Footer);
+export default connect(mapStateToProps,actions)(Gameover);

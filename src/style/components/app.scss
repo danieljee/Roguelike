@@ -12,6 +12,13 @@
   overflow: hidden;
 }
 
+#toggleMusicButton{
+  position:fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 5%;
+}
+
 #map{
   position:relative;
   background-image: url('/images/tile.jpg');
