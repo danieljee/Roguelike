@@ -336,7 +336,7 @@ class Logic{
       this.playerHealth -= this.dungeonConfig.bossDamage;
       Materialize.toast(`Damage taken: ${this.dungeonConfig.bossDamage}`, 800);
     }
-    if (this.playerHealth <=0){clearInterval(this.loopId);return;}
+    if (this.playerHealth <=0){return;}
 
     monsterList.forEach((monster, i) => {
       if (monster.id === cell.id){
@@ -362,7 +362,4 @@ class Logic{
     }
   }
 }
-
-//Only clear interval upon death? Store all redux data into this class?
-
 export default Logic;

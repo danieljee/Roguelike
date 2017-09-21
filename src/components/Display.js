@@ -7,14 +7,19 @@ import * as playerActions from '../actions/player';
 import * as dungeonActions from '../actions/dungeon';
 class Display extends Component{
   componentDidMount(){
-    this.init();
-    var myAudio = new Audio('/music/dungeonBGM.mp3');
-    myAudio.addEventListener('ended', function() {
-        this.currentTime = 0;
-        this.play();
-    }, false);
-    myAudio.play();
-    this.props.dungeonActions.addMusic(myAudio);
+      console.log('init');
+      this.init();
+      var myAudio = new Audio('/music/dungeonBGM.mp3');
+      myAudio.addEventListener('ended', function() {
+          this.currentTime = 0;
+          this.play();
+      }, false);
+      myAudio.play();
+      this.props.dungeonActions.addMusic(myAudio);
+  }
+
+  componentWillMount(){
+    this.markUp = this.generateGrid();
   }
 
   componentWillReceiveProps(nextProp){
@@ -23,12 +28,15 @@ class Display extends Component{
       clearInterval(this.state.loopId);
       // this.resetGrid();
       // this.props.playerAction.reset(); //reset when the button in the gameover page is pressed?
-      // document.getElementById('gameOverPopUp').style.display = "block";
     //If the player died and the state is reset.
     } else if (nextProp.player.reset){
-      this.state.map.updateProperties(nextProp.map, nextProp.dungeon);
+      this.markUp = this.generateGrid();
+      this.state.map.updateProperties(this.props.map, this.props.dungeon);
       this.state.map.createMap();
-      this.state.logic.updateProps(nextProp.map, nextProp.dungeon, nextProp.player, this.props.playerAction);
+      this.state.logic.updateProps(this.props.map, this.props.dungeon, this.props.player, this.props.playerAction);
+      this.setState({
+        loopId: this.state.logic.initializeEventHandler()
+      });
     //If the player leveled up.
     } else if (nextProp.player.level> this.props.player.level){
       this.state.logic.updateProps(nextProp.map, nextProp.dungeon, nextProp.player, this.props.playerAction);
@@ -63,6 +71,7 @@ class Display extends Component{
         let classN= 'cell wall';
         grid.push(<div key={i+1234} id={i} className={classN} style={{width:tileSize, height:tileSize}}></div>)
     }
+    console.log('gen grid');
     return React.createElement('div', {id: 'map', style:{width:`${this.props.map.tileSize * this.props.map.columns}px`, height:`${this.props.map.tileSize * this.props.map.rows}px`}}, grid);
   }
 
@@ -73,28 +82,15 @@ class Display extends Component{
   }
 
   render(){
-    var markup;
     if (this.props.player.health <= 0){
-      markup = <Death/>;
+      this.markUp = <Death/>;
     } else if (this.props.player.gameover){
-      markup= <div>GAMEOVER!</div>;
-    } else {
-      markup = <div>
-        <div id="gameOverPopUp" className="popUp">
-          <div className="modal-content">
-            <span className="close" onClick={()=>{document.getElementById('gameOverPopUp').style.display = "none";}}>&times;</span>
-            <p>You died...</p>
-          </div>
-        </div>
-        <div id='screen'>
-          {this.generateGrid()}
-        </div>
-      </div>;
+      this.markUp= <div>You won!</div>;
     }
 
     return(
-      <div>
-      {markup}
+      <div id='screen'>
+        {this.markUp}
       </div>
     );
   }

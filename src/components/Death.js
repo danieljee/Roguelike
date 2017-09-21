@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import $ from 'jquery';
 import 'letteringjs/jquery.lettering.js';
-import * as actions from '../actions/dungeon';
+import * as playerActions from '../actions/player';
 class Death extends Component{
   componentDidMount(){
     $("#intro-text > h2").css('opacity',1).lettering('words').children("span").lettering().children("span").lettering();
@@ -20,18 +20,12 @@ class Death extends Component{
           <h2>Press the button try again</h2>
         </div>
         <div id="tryAgainButtonDiv">
-          <button id='tryAgain' className="btn-large">Try again!</button>
+          <button id='tryAgain' className="btn-large" onClick={this.props.reset}>Try again!</button>
         </div>
       </div>
     );
   }
 }
 
-function mapStateToProps(state){
-  return {
-    player: state.player,
-    dungeon: state.dungeon
-  };
-}
 
-export default connect(mapStateToProps,actions)(Death);
+export default connect(null,playerActions)(Death);
