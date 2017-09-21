@@ -9,7 +9,7 @@ class Corridor{
     this.direction = DIRECTION[keys[Math.floor(Math.random() * 4 )]];
     var directionIndex = keys.indexOf(this.direction);
     this.oppositeDirection = DIRECTION[keys[(enteringCorridorIndex + 2) % 4]];
-    if (!firstCorridor && this.direction == this.oppositeDirection){
+    if (!firstCorridor && this.direction === this.oppositeDirection){
       directionIndex++;
       directionIndex = directionIndex % 4;
       this.direction = DIRECTION[keys[directionIndex]];
@@ -29,26 +29,27 @@ class Corridor{
         if (this.maxLength <= 1){
           switch(this.oppositeDirection){
             case DIRECTION.SOUTH:
-              if (Math.floor(Math.random() * 2) == 0){
+              if (Math.floor(Math.random() * 2) === 0){
                 this.direction = DIRECTION.EAST;
               } else {
                 this.direction = DIRECTION.WEST;
               }
               break;
             case DIRECTION.WEST:
-              if (Math.floor(Math.random() * 2) == 0){
+              if (Math.floor(Math.random() * 2) === 0){
                 this.direction = DIRECTION.EAST;
               } else {
                 this.direction = DIRECTION.SOUTH;
               }
               break;
             case DIRECTION.EAST:
-              if (Math.floor(Math.random() * 2) == 0){
+              if (Math.floor(Math.random() * 2) === 0){
                 this.direction = DIRECTION.WEST;
               } else {
                 this.direction = DIRECTION.SOUTH;
               }
               break;
+            default:
           }
           this.getPositionAndLength(room, roomWidth, roomHeight, columns, rows);
         }
@@ -60,26 +61,27 @@ class Corridor{
         if (this.maxLength <= 1){
           switch(this.oppositeDirection){
             case DIRECTION.SOUTH:
-              if (Math.floor(Math.random() * 2) == 0){
+              if (Math.floor(Math.random() * 2) === 0){
                 this.direction = DIRECTION.NORTH;
               } else {
                 this.direction = DIRECTION.WEST;
               }
               break;
             case DIRECTION.WEST:
-              if (Math.floor(Math.random() * 2) == 0){
+              if (Math.floor(Math.random() * 2) === 0){
                 this.direction = DIRECTION.NORTH;
               } else {
                 this.direction = DIRECTION.SOUTH;
               }
               break;
             case DIRECTION.NORTH:
-              if (Math.floor(Math.random() * 2) == 0){
+              if (Math.floor(Math.random() * 2) === 0){
                 this.direction = DIRECTION.WEST;
               } else {
                 this.direction = DIRECTION.SOUTH;
               }
               break;
+            default:
           }
           this.getPositionAndLength(room, roomWidth, roomHeight, columns, rows);
         }
@@ -91,26 +93,27 @@ class Corridor{
         if (this.maxLength <= 1){
           switch(this.oppositeDirection){
             case DIRECTION.NORTH:
-              if (Math.floor(Math.random() * 2) == 0){
+              if (Math.floor(Math.random() * 2) === 0){
                 this.direction = DIRECTION.WEST;
               } else {
                 this.direction = DIRECTION.EAST;
               }
               break;
             case DIRECTION.WEST:
-              if (Math.floor(Math.random() * 2) == 0){
+              if (Math.floor(Math.random() * 2) === 0){
                 this.direction = DIRECTION.NORTH;
               } else {
                 this.direction = DIRECTION.EAST;
               }
               break;
             case DIRECTION.EAST:
-              if (Math.floor(Math.random() * 2) == 0){
+              if (Math.floor(Math.random() * 2) === 0){
                 this.direction = DIRECTION.WEST;
               } else {
                 this.direction = DIRECTION.NORTH;
               }
               break;
+            default:
           }
           this.getPositionAndLength(room, roomWidth, roomHeight, columns, rows);
         }
@@ -122,30 +125,32 @@ class Corridor{
         if (this.maxLength <= 1){
           switch(this.oppositeDirection){
             case DIRECTION.NORTH:
-              if (Math.floor(Math.random() * 2) == 0){
+              if (Math.floor(Math.random() * 2) === 0){
                 this.direction = DIRECTION.SOUTH;
               } else {
                 this.direction = DIRECTION.EAST;
               }
               break;
             case DIRECTION.EAST:
-              if (Math.floor(Math.random() * 2) == 0){
+              if (Math.floor(Math.random() * 2) === 0){
                 this.direction = DIRECTION.NORTH;
               } else {
                 this.direction = DIRECTION.SOUTH;
               }
               break;
             case DIRECTION.SOUTH:
-              if (Math.floor(Math.random() * 2) == 0){
+              if (Math.floor(Math.random() * 2) === 0){
                 this.direction = DIRECTION.EAST;
               } else {
                 this.direction = DIRECTION.NORTH;
               }
               break;
+            default:
           }
           this.getPositionAndLength(room, roomWidth, roomHeight, columns, rows);
         }
         return;
+      default:
     }
     //will this get called once?
     if (this.corridorLength < 1){
@@ -156,18 +161,18 @@ class Corridor{
   }
 
   getEndPositionX(){
-    if (this.direction == DIRECTION.NORTH || this.direction == DIRECTION.SOUTH){
+    if (this.direction === DIRECTION.NORTH || this.direction === DIRECTION.SOUTH){
       return this.startXPos;
-    } else if (this.direction == DIRECTION.EAST){
+    } else if (this.direction === DIRECTION.EAST){
       return this.startXPos + this.corridorLength - 1;
     }
     return this.startXPos - this.corridorLength + 1;
   }
 
   getEndPositionY(){
-    if (this.direction == DIRECTION.EAST || this.direction == DIRECTION.WEST){
+    if (this.direction === DIRECTION.EAST || this.direction === DIRECTION.WEST){
       return this.startYPos;
-    } else if (this.direction == DIRECTION.NORTH){
+    } else if (this.direction === DIRECTION.NORTH){
       return this.startYPos - this.corridorLength + 1;
     }
     return this.startYPos + this.corridorLength - 1;
@@ -176,8 +181,8 @@ class Corridor{
   createCorridor(){
     this.endXPos = this.getEndPositionX();
     this.endYPos = this.getEndPositionY();
-    if (this.direction == DIRECTION.EAST){
-      for (var i=this.startXPos; i<=this.endXPos; i++){
+    if (this.direction === DIRECTION.EAST){
+      for (let i=this.startXPos; i<=this.endXPos; i++){
         const id = i + this.startYPos * this.columns;
         const topWallId = i + (this.startYPos-1) * this.columns;
         const topWall = document.getElementById(topWallId);
@@ -190,8 +195,8 @@ class Corridor{
           topWall.classList.add('wallTop');
         }
       }
-    } else if (this.direction == DIRECTION.WEST){
-      for (var i=this.startXPos; i>=this.endXPos; i--){
+    } else if (this.direction === DIRECTION.WEST){
+      for (let i=this.startXPos; i>=this.endXPos; i--){
         const id = i + this.startYPos * this.columns;
         const topWallId = i + (this.startYPos-1) * this.columns;
         const topWall = document.getElementById(topWallId);
@@ -204,8 +209,8 @@ class Corridor{
           topWall.classList.add('wallTop');
         }
       }
-    } else if (this.direction == DIRECTION.NORTH){
-      for (var i=this.startYPos; i>=this.endYPos; i--){
+    } else if (this.direction === DIRECTION.NORTH){
+      for (let i=this.startYPos; i>=this.endYPos; i--){
         const id = this.startXPos + i * this.columns;
         const cell = document.getElementById(id);
         if(cell.classList.contains('wall')){
@@ -213,8 +218,8 @@ class Corridor{
           cell.classList.remove('wallTop');
         }
       }
-    } else if (this.direction == DIRECTION.SOUTH){
-      for (var i=this.startYPos; i<=this.endYPos; i++){
+    } else if (this.direction === DIRECTION.SOUTH){
+      for (let i=this.startYPos; i<=this.endYPos; i++){
         const id = this.startXPos + i * this.columns;
         const cell = document.getElementById(id);
         if(cell.classList.contains('wall')){

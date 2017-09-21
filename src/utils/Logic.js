@@ -20,7 +20,7 @@ class Logic{
   updateProps(mapProps, dungeonProps, playerProps, playerActions){
     this.config = mapProps;
     this.dungeonConfig = dungeonProps;
-    this.playerConfig = playerProps,
+    this.playerConfig = playerProps;
     this.playerHealth = playerProps.health;
     this.playerNextLevel =  playerProps.nextLevel;
     this.playerActions = playerActions;
@@ -82,7 +82,6 @@ class Logic{
     const x= left/ this.config.tileSize;
     const y=  top/ this.config.tileSize;
     const id = x + y * this.config.columns;
-    var tileSize = this.config.tileSize;
     if (this.keyState[65] && this.keyState[83]){
       this.movingAction(playerDirection.DOWNLEFT);
       if (this.hasObject(id-1+this.config.columns)){
@@ -255,6 +254,7 @@ class Logic{
           this.player.classList.add('playerDownRight_0');
         }
         return;
+      default:
     }
   }
 

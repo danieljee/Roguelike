@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import Map from '../utils/Map';
 import Logic from '../utils/Logic';
 import Death from './Death';
+import Gameover from './Gameover';
 import * as playerActions from '../actions/player';
 import * as dungeonActions from '../actions/dungeon';
 class Display extends Component{
@@ -85,7 +86,7 @@ class Display extends Component{
     if (this.props.player.health <= 0){
       this.markUp = <Death/>;
     } else if (this.props.player.gameover){
-      this.markUp= <div>You won!</div>;
+      this.markUp= <Gameover/>;
     }
 
     return(

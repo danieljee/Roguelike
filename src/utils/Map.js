@@ -51,16 +51,16 @@ class Map{
 
   generateMonsters(){
     for (let i=0; i<this.weakMonsters; i++){
-      var index = Math.floor(Math.random() * this.rooms.length);
-      var cells = document.querySelectorAll(`.room${index}`);
+      let index = Math.floor(Math.random() * this.rooms.length);
+      let cells = document.querySelectorAll(`.room${index}`);
       if (cells.length > 3) {
         index = Math.floor(Math.random() * cells.length);
         cells[index].className += ' monster monster_1';
       }
     }
     for (let i=0; i<this.normalMonsters; i++){
-      var index = Math.floor(Math.random() * this.rooms.length);
-      var cells = document.querySelectorAll(`.room${index}`);
+      let index = Math.floor(Math.random() * this.rooms.length);
+      let cells = document.querySelectorAll(`.room${index}`);
       if (cells.length > 3) {
         index = Math.floor(Math.random() * cells.length);
         if (cells[index].classList.contains('monster')){
@@ -71,8 +71,8 @@ class Map{
       }
     }
     for (let i=0; i<this.strongMonsters; i++){
-      var index = Math.floor(Math.random() * this.rooms.length);
-      var cells = document.querySelectorAll(`.room${index}`);
+      let index = Math.floor(Math.random() * this.rooms.length);
+      let cells = document.querySelectorAll(`.room${index}`);
       if (cells.length > 3) {
         index = Math.floor(Math.random() * cells.length);
         if (cells[index].classList.contains('monster')){
@@ -137,7 +137,7 @@ class Map{
     var roomIndex = this.rooms.findIndex((room, i) => {
       var cells = document.querySelectorAll(`.room${i}`);
       return [...cells].some((cell) => {
-        if (!cell.classList.contains('monster') && !cell.classList.contains('item') && !cell.classList.contains('stair')) return true;
+        return (!cell.classList.contains('monster') && !cell.classList.contains('item') && !cell.classList.contains('stair'));
       })
     });
     var cells = document.querySelectorAll(`.room${roomIndex}`);

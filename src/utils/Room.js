@@ -50,20 +50,21 @@ class Room {
           this.posY = Math.floor(Math.random() * (corridorEndPosY - minY + 1)) + minY;
           this.posY = clamp(this.posY, 1, (rows - 1) - this.roomHeight);
           return;
-        }
+        default:
+      }
     }
   }
 
   createRoom(roomNum){
-    const topLeftCorner = this.posX + this.posY * this.columns;
-    const topRightCorner = topLeftCorner + this.roomWidth + 1;
-    const bottomLeftCorner = topLeftCorner + (this.roomHeight + 1) * this.columns;
-    const bottomRightCorner = topRightCorner + (this.roomHeight + 1) * this.columns;
-
+    function removeRoomName(className){
+      if (regex.test(className)){
+        cell.classList.remove(className);
+      }
+    }
     for (let i=this.posY; i<(this.posY+this.roomHeight); i++){
       for (let n=this.posX; n<(this.posX+this.roomWidth); n++){
         const id = n + i * this.columns;
-        const cell = document.getElementById(id);
+        var cell = document.getElementById(id);
 
         if (i === this.posY){
           const topWallId = n + (i-1) * this.columns;
@@ -78,13 +79,10 @@ class Room {
           cell.classList.remove('wallTop');
         }
 
-        var regex = /^room/
+        var regex = /^room/;
+
         //if the tile already has other room name remove it.
-        cell.classList.forEach((className)=>{
-          if (regex.test(className)){
-            cell.classList.remove(className);
-          }
-        });
+        cell.classList.forEach(removeRoomName);
         cell.classList.add(`room${roomNum}`);
         if (cell.classList.contains('corridor')){
           cell.classList.remove('corridor');

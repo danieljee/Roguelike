@@ -1,7 +1,10 @@
 body {
   background-color: #000;
   color: #fff;
-  font-family: 'Press Start 2P', cursive; }
+  font-family: 'Press Start 2P', cursive;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; }
 
 #root {
   /* Modal Content/Box */
@@ -179,6 +182,12 @@ body {
   #root .stair {
     background-image: url("/images/stair.png");
     background-size: 100% 100%; }
+  #root #gameoverMessage {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 50%;
+    text-align: center; }
   #root body {
     background: #000;
     font-family: 'Special Elite', cursive; }
